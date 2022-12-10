@@ -1,0 +1,10 @@
+%matlab encoder
+trellis = poly2trellis(3,[4 5 7]);
+disp(trellis);
+%data = randi([0 1],70,1);
+data = [1 0 1 0];
+%disp(data);
+%data = [1];
+[code_a,fstate_a] = convenc(data,trellis);
+%codedData = convenc(data,trellis);
+disp(code_a);
