@@ -1,72 +1,49 @@
 clear
-%p2 = genix(a,b);
-a = input(&#39;Enter the number of rows&#39;);
-b = input(&#39;Enter the number of columns&#39;);
+a = input('Enter the number of rows');
+b = input('Enter the number of columns');
 for i=1:a
-for j=1:b
-
-p(i,j) = input(&#39;Enter the elements of generator
-polynomial&#39;);
-end
+  for j=1:b
+   p(i,j) = input('Enter the elements of generator polynomial');
+  end
 end
 p=reshape(p,a,b)
 %g= [1 1 1;1 1 0];%generator polynomials
 [n,K] = size(p);
-%%size meaning it took the matrix &#39;g&#39;. [2,3]
+%size meaning it took the matrix 'g'. [2,3]
 m = K-1;%number of registers
 %m = 3-1 = 2;
 state = zeros(1,m);%set registers to zero
-%what is 0&#39;s? state = 00 .
-%state = 0 0 . Y do we need state? maybe no of
-registers shld always be one
-%less than memory.
+%state = 0 0 less than memory.
 count = 1;
 x = [];
 disp(x);
 for count = 1:4
-r = input(&#39;Enter the input source number&#39;);
-x = [x r];
-if count &lt;= 3
-count = count + 1;
-else
-count;
-end
+ r = input('Enter the input source number');
+ x = [x r];
+ if count <= 3
+   count = count + 1;
+ else
+  count;
+ end
 end
 %inputx=[0 1 0 1 ];%encoder input source code
-%whats inputx? %no of rows followed by no of
-columns.
-
+%inputx: no of rows followed by no of columns.
 [trash,h]=size(x);
 outputy=[];
 % empty array for storing variables.
-for c=1:h %h=number of input bits. , no of input bits
-loop for retreiving one element.
-input = x(1,c); %here x is for choosing only one
-element from inputx.
-for i=1:n %whats n , here , 2 ryt? so multiply for every
-row input and generator
-% for j = 1:K
-output(i) = p(i,1)*input;
-for j=2:K % 3 elements here, then what ?
-z=p(i,j)*state(j-1);
-disp(z); %but is state updated any time ?
-output(i) = xor(output(i),z);
-%whats output ? y are we xorring output and Z ?
-%state(j-1) = input;
-end
-% state(j) = input;
-end
-%state(j-1) = input;
-%disp(&#39;state&#39;);
-%disp(state(j-1));
-% This operation is specifically for shifting the input to
-states.
-state = [input, state(1:m-1)];
-%Last time didn’t use shift for states so output was
-wrong.
-outputy=[outputy,output];%new element added to
-sequence
-
-%outputy ;%final encoder output in command window
+for c=1:h % h=number of input bits , no of input bits loop for retreiving one element.
+    input = x(1,c); %here x is for choosing only one element from inputx.
+for i=1:n % so multiply for every row input and generator
+  output(i) = p(i,1)*input;
+  for j=2:K % 3 elements here, then what ?
+     z=p(i,j)*state(j-1);
+     disp(z); 
+     output(i) = xor(output(i),z);
+   end
+ end
+ % This operation is specifically for shifting the input to states.
+ state = [input, state(1:m-1)];
+  outputy=[outputy,output];%new element added to sequence
+  %final encoder output in command window
 end
 disp(outputy);
